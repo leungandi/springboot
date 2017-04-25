@@ -10,7 +10,7 @@
 
 	<name>springboot</name>
 	<description>Demo project for Spring Boot</description>
-    <repositories>
+ <!--    <repositories>
 	   <repository>
 		   <id>maven-public</id>
 		   <name>maven-public</name>
@@ -22,7 +22,7 @@
 			   <enabled>true</enabled>
 		   </releases>
 	   </repository>
-	</repositories>
+	</repositories> -->
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -55,7 +55,19 @@
 		<dependency>  
             <groupId>redis.clients</groupId>  
             <artifactId>jedis</artifactId>  
-            </dependency>  
+        </dependency>
+        <!-- mybatis -->
+        <dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>1.3.0</version>
+		</dependency>  
+		<!-- mysql -->
+        <dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>  
 	</dependencies>
 
 	<build>
