@@ -19,26 +19,29 @@ import com.szl.springboot.redis.RedisClientTemplate;
 public class RedisController {
 	
 	/**
-	 * 自己封装的
+	 * 自己封装的redis模板,灵活性更强
 	 */
 	@Autowired
 	private RedisClientTemplate redisClientTemplate;
 	
-	@Autowired
-	private StringRedisTemplate stringRedisTemplate;
-	@Resource(name = "stringRedisTemplate")
-	private ValueOperations<String, String> vo;
+	/**
+	 * spring封装的redis模板
+	 */
+//	@Autowired
+//	private StringRedisTemplate stringRedisTemplate;
+//	@Resource(name = "stringRedisTemplate")
+//	private ValueOperations<String, String> vo;
 	
 	@RequestMapping(value="set")
 	public String setKey(){
 		return redisClientTemplate.setKey("redis", "hello springBoot");
 	}
 	
-	@RequestMapping(value="set1")
-	public String setKey1(){
-		vo.set("redis1", "hello again");
-		return "ok";
-	}
+//	@RequestMapping(value="set1")
+//	public String setKey1(){
+//		vo.set("redis1", "hello again");
+//		return "ok";
+//	}
 	
 	
 	
