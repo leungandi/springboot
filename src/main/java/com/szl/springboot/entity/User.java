@@ -1,5 +1,7 @@
 package com.szl.springboot.entity;
 
+import org.springframework.context.annotation.PropertySource;
+
 public class User {
 	private int id;
 	private String name;
