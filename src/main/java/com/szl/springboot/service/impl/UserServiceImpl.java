@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 
 import com.szl.springboot.entity.User;
 import com.szl.springboot.mapper.UserMapper;
+import com.szl.springboot.service.UserService;
+
 @Service
-public class UserService implements com.szl.springboot.service.UserService {
+public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserMapper userMapper;
 	

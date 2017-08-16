@@ -6,8 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.szl.springboot.entity.User;
-import com.szl.springboot.service.impl.UserService;
+import com.szl.springboot.service.impl.UserServiceImpl;
 
 /**
  * user controller
@@ -20,7 +19,7 @@ public class UserController {
 	
 	protected static final Logger log = Logger.getLogger(UserController.class);
 	@Autowired
-	private UserService userService;
+	private UserServiceImpl userService;
 	
 	@RequestMapping(value="queryUserById")
 	@ResponseBody
