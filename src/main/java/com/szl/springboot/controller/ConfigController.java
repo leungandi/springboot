@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.szl.springboot.util.SystemConfig;
+import com.szl.springboot.config.SystemConfig;
 
 /**
  * 读取系统配置文件

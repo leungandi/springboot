@@ -89,6 +89,8 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<!-- 打包名称 -->
+  		<finalName>springBoot</finalName>
 	</build>
 
 

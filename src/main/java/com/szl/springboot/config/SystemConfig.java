@@ -1,4 +1,4 @@
-package com.szl.springboot.util;
+package com.szl.springboot.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
