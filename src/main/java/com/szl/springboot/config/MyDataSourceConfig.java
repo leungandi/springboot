@@ -45,7 +45,7 @@ public class MyDataSourceConfig {
 	private boolean poolPreparedStatements;
 	
 
-	@Bean
+	@Bean(destroyMethod="close")
 	public DataSource dataSource11() {
 		DruidDataSource dataSource = new DruidDataSource();
 		dataSource.setUrl(url);

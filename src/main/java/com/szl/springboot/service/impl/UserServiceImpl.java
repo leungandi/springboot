@@ -1,5 +1,7 @@
 package com.szl.springboot.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User queryUserById(int id) {
 		return userMapper.queryUserById(id);
+	}
+
+	@Override
+	public List<User> queryUser() {
+		return userMapper.queryUser();
 	}
 
 }
