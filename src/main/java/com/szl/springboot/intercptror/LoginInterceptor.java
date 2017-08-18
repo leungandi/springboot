@@ -18,6 +18,13 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		log.info("进入自定义登录拦截器-preHandle方法");
+		/**
+		 * 
+		 * 此处进行业务逻辑的判断
+		 * 比如判断session。。。
+		 * 
+		 * 
+		 */
 		return super.preHandle(request, response, handler);
 	}
 

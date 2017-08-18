@@ -10,4 +10,8 @@ public interface UserService {
 
 	public List<User> queryUser();
 
+	public int delUser(int parseInt);
+
+	public int insertUser(User user);
+
 }

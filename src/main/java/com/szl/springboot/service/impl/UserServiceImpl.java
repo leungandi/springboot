@@ -24,4 +24,14 @@ public class UserServiceImpl implements UserService {
 		return userMapper.queryUser();
 	}
 
+	@Override
+	public int delUser(int id) {
+		return userMapper.delUser(id);
+	}
+
+	@Override
+	public int insertUser(User user) {
+		return userMapper.insertUser(user);
+	}
+
 }
