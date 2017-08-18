@@ -81,18 +81,18 @@
 		   <version>1.1.2</version>
 		</dependency> -->
 		  
-		<!-- Spring Boot 实现热部署 第一种方式-->
-		<!-- <dependency>
+		<!-- Spring Boot 实现热部署 第一种方式,无需重启-->
+		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>springloaded</artifactId>
-		</dependency> -->
+		</dependency>
 		
-		<!-- Spring Boot 实现热部署 第二种方式-->
-		<dependency>
+		<!-- Spring Boot 实现热部署 第二种方式,自动重启-->
+	<!-- <dependency>
 		 <groupId>org.springframework.boot</groupId>
 		 <artifactId>spring-boot-devtools</artifactId>
-		 <optional>true</optional> <!-- 这个需要为 true 热部署才有效 -->
-		</dependency>
+		 <optional>true</optional> 
+		</dependency> -->
 	</dependencies>
 
 	<build>
