@@ -1,16 +1,22 @@
 package com.szl.springboot.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageInfo;
 import com.szl.springboot.entity.User;
 import com.szl.springboot.service.UserService;
+import com.szl.springboot.util.JsonUtil;
 
 /**
  * 使用mybatis进行数据库操作-查询用户
@@ -35,14 +41,17 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value="queryUser")
-	public String queryUser(){
+	@RequestMapping(value="queryUser/{pageIndex}/{pageSize}")
+	public String queryUser(@PathVariable(name="pageIndex",required=false) int pageIndex,@PathVariable(name="pageSize",required=false) int pageSize){
 		log.info("模拟查询用户...");
-		List<User> user = userService.queryUser();
+		Map<String, Object> params = new HashMap<>();
+		params.put("pageIndex", pageIndex);
+		params.put("pageSize", pageSize);
+		List<User> user = userService.queryUser(params);
 		if (null == user) {
 			return "用户不存在";
 		}
-		return user.toString();
+		return JsonUtil.object2Json(new PageInfo<>(user));
 	}
 	
 	@RequestMapping(value="insertUser")
