@@ -8,10 +8,10 @@ springboot demo
 ```
 CREATE DATABASE IF NOT EXISTS`spring_boot` DEFAULT CHARACTER SET utf8;
 USE `spring_boot`;
-DROP TABLE IF EXISTS `t_users`;
 ```
 #### 创建表
 ```
+DROP TABLE IF EXISTS `t_users`;
 CREATE TABLE `t_users` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
