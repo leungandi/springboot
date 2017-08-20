@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<!-- 通过xmlns:th=”http://www.thymeleaf.org“ 命令空间，将静态页面转换为动态的视图，需要进行动态处理的元素将使用“th:”前缀 -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>500</title>
+</head>
+<body>
+	<div style="text-align: center;">
+		<h2>服务器报错了</h2><br/>
+		<span th:text="${error}"></span>
+	</div>
+</body>
+</html>
