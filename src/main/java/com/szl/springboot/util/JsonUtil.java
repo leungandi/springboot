@@ -14,7 +14,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 public class JsonUtil {
 
     public static String toJson(Object o) {
-        return JSON.toJSONString(o);
+        return JSON.toJSONString(o,SerializerFeature.DisableCircularReferenceDetect);
     }
 
     public static <T> List<T> parseJsonToList(String jsonStr, Class<T> clazz) {

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.szl.springboot.mapper.TStudentMapper" >
+  
+  <!-- 第一中映射方式 -->
+  <resultMap id="BaseResultMap" type="com.szl.springboot.entity.TStudent" >
+  	<!-- id主键 -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <!-- result property：映射到列结果的字段或属性 column:对应的sql列 -->
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="TINYINT" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+   
+    <!-- association：一对一的映射  property：：映射到列结果的字段或属性  column:对应的sql列,也就是传到下个sql的参数-->
+    <association property="tsStudentIfno" column="id" select="com.szl.springboot.mapper.TStudentIfnoMapper.queryStundenInfoByStundentId"></association>
+  	 <!-- collection：一对多的映射  property：：映射到列结果的字段或属性  column:对应的sql列,也就是传到下个sql的参数-->
+  	<collection property="tStudentScore" column="id" select="com.szl.springboot.mapper.TStudentScoreMapper.queryStudentScoreByStudentId"></collection>
+  
+  </resultMap>
+  
+  <!-- 第二种映射方式 -->
+  <resultMap type="com.szl.springboot.entity.TStudent" id="StundentResultMap">
+  	<id column="id" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="TINYINT" />
+    <!-- 一对一映射学生信息表 -->
+    <association property="tsStudentIfno" column="id" javaType="com.szl.springboot.entity.TStudentIfno">
+    	<result property="id" column="info_id"/>
+    	<result property="homeAddress" column="home_address"/>
+    	<result property="createTime" column="create_time"/>
+    </association>
+    <!-- 一对多映射成绩表 -->
+    <collection property="tStudentScore" column="id" ofType="com.szl.springboot.entity.TStudentScore">
+   		<result property="id" column="score_id"/>
+    	<result property="score" column="score"/>
+    	<result property="timetableId" column="timetableId"/>
+    	<!-- 一对一映射课程 -->
+    	<association property="tTimetable" column="timetableId" javaType="com.szl.springboot.entity.TTimetable">
+	    	<result property="id" column="timetable_id"/>
+	    	<result property="name" column="timetable_name"/>
+    	</association>
+    </collection>
+  
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+    id, name, email, sex, memo
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_student
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <select id="queryStudent" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_student
+  </select>
+  
+  <select id="queryStudent2" resultMap="StundentResultMap">
+    SELECT ts.id,ts.name,ts.sex,ts.email,
+	tsi.id as info_id,tsi.home_address,tsi.create_time,
+	tss.id score_id,tss.score,tss.timetable_id as timetableId,
+	tt.id as timetable_id,tt.name as timetable_name 
+	from t_student ts
+	left JOIN t_student_ifno tsi on ts.id=tsi.student_id
+	left JOIN t_student_score tss on ts.id=tss.student_id
+	left JOIN t_timetable tt ON tss.timetable_id=tt.id
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_student
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.szl.springboot.entity.TStudent" >
+    insert into t_student (id, name, email, 
+      sex, memo)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=TINYINT}, #{memo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.szl.springboot.entity.TStudent" >
+    insert into t_student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="memo != null" >
+        memo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.szl.springboot.entity.TStudent" >
+    update t_student
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="memo != null" >
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.szl.springboot.entity.TStudent" >
+    update t_student
+    set name = #{name,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=TINYINT},
+      memo = #{memo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

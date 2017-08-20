@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.szl.springboot.mapper.TStudentScoreMapper" >
+  <resultMap id="BaseResultMap" type="com.szl.springboot.entity.TStudentScore" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="student_id" property="studentId" jdbcType="BIGINT" />
+    <result column="timetable_id" property="timetableId" jdbcType="BIGINT" />
+    <result column="score" property="score" jdbcType="DECIMAL" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+     <!-- association：一对一的映射  property：：映射到列结果的字段或属性  column:对应的sql列,也就是传到下个sql的参数-->
+    <association property="tTimetable" column="timetable_id" select="com.szl.springboot.mapper.TTimetableMapper.selectByPrimaryKey"></association>
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, student_id, timetable_id, score, memo
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_student_score
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <select id="queryStudentScoreByStudentId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+  	select 
+    <include refid="Base_Column_List" />
+    from t_student_score
+    where student_id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_student_score
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.szl.springboot.entity.TStudentScore" >
+    insert into t_student_score (id, student_id, timetable_id, 
+      score, memo)
+    values (#{id,jdbcType=BIGINT}, #{studentId,jdbcType=BIGINT}, #{timetableId,jdbcType=BIGINT}, 
+      #{score,jdbcType=DECIMAL}, #{memo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.szl.springboot.entity.TStudentScore" >
+    insert into t_student_score
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="studentId != null" >
+        student_id,
+      </if>
+      <if test="timetableId != null" >
+        timetable_id,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="memo != null" >
+        memo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="studentId != null" >
+        #{studentId,jdbcType=BIGINT},
+      </if>
+      <if test="timetableId != null" >
+        #{timetableId,jdbcType=BIGINT},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=DECIMAL},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.szl.springboot.entity.TStudentScore" >
+    update t_student_score
+    <set >
+      <if test="studentId != null" >
+        student_id = #{studentId,jdbcType=BIGINT},
+      </if>
+      <if test="timetableId != null" >
+        timetable_id = #{timetableId,jdbcType=BIGINT},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=DECIMAL},
+      </if>
+      <if test="memo != null" >
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.szl.springboot.entity.TStudentScore" >
+    update t_student_score
+    set student_id = #{studentId,jdbcType=BIGINT},
+      timetable_id = #{timetableId,jdbcType=BIGINT},
+      score = #{score,jdbcType=DECIMAL},
+      memo = #{memo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
